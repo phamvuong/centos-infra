@@ -1,0 +1,4 @@
+---
+common_utils:
+  - ntp
+  - vim
