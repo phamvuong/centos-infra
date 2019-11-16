@@ -6,9 +6,6 @@
       - bind
       - bind-utils
 
-- name: Copy resolve file for nameserver
-  template: src="resolv.conf" dest="/etc/resolv.conf" owner=root mode=640
-
 - name: Create custom named.conf with desired zones
   template: src=named.conf dest=/etc/named.conf owner=root group=named mode=640
   notify:
