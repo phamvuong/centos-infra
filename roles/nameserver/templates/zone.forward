@@ -1,0 +1,13 @@
+$TTL 3600
+@ SOA ns.{{item}} root.{{item}} (1 15m 5m 30d 1h)
+{% for name_server1 in name_servers %}
+        IN  NS  {{name_server1}}
+{% endfor %}
+{% for mail_server1 in mail_servers %}
+        IN  MX  {{mail_server1}}
+{% endfor %}
+        IN  A   {{zone_address}}
+
+{% for server in dns_server_list %}
+{{server.hostname}}    IN  A   {{server.ip}}
+{% endfor %}

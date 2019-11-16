@@ -1,0 +1,7 @@
+---
+- name: Configure nameserver machine
+  become: yes
+  become_method: sudo
+  hosts: nameserver
+  roles:
+    - nameserver

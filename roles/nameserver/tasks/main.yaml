@@ -1,0 +1,38 @@
+---
+- name: Install bind and bind-utils package
+  yum:
+    state: present
+    name:
+      - bind
+      - bind-utils
+
+- name: Copy resolve file for nameserver
+  template: src="resolv.conf" dest="/etc/resolv.conf" owner=root mode=640
+
+- name: Create custom named.conf with desired zones
+  template: src=named.conf dest=/etc/named.conf owner=root group=named mode=640
+  notify:
+    - restart bind
+
+- name: Copy zone forward files for all zones to /var/named
+  template: src="zone.forward" dest="/var/named/{{item}}forward" owner=root group=named mode=640
+  with_items: "{{ zone_names }}"
+  notify:
+    - restart bind
+
+- name: Copy zone reverse files for all zones to /var/named
+  template: src="zone.reverse" dest="/var/named/{{item}}reverse" owner=root group=named mode=640
+  with_items: "{{ reverse_zones }}"
+  notify:
+    - restart bind
+
+- name: Disable IPv6 support
+  lineinfile: dest=/etc/sysconfig/named line='OPTIONS="-4"' regexp="^OPTIONS"
+  notify:
+    - restart bind
+
+- name: Start and enable bind service
+  service: name=named state=started enabled=yes
+
+- name: disable network manager
+  service: name=NetworkManager state=stopped enabled=no

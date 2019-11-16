@@ -1,0 +1,14 @@
+zone_names:
+  - "{{ ns_zone }}."
+reverse_zones:
+  - 99.168.192.in-addr.arpa.
+forward_zones:
+  - { zone: "{{ forward_zone }}.", forwarders: "8.8.8.8; 4.4.4.4;" }
+zone_address: 192.168.99.151
+allow_query_from: "10.0.0.0/8; 172.16.0.0/12; 192.168.0.0/16;"
+allow_recursion_from: "10.0.0.0/8; 172.16.0.0/12; 192.168.0.0/16;"
+name_servers:
+ - "ns1.{{ ns_zone }}."
+mail_servers:
+ - " 10 smtp.{{ ns_zone }}."
+dns_server_list: "{{devops_private_servers}}"
