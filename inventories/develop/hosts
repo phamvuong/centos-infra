@@ -1,0 +1,9 @@
+[all]
+ns1.devops.internal.com
+jenkins.devops.internal.com
+
+[nameserver]
+ns1.devops.internal.com
+
+[jenkins]
+jenkins.devops.internal.com
