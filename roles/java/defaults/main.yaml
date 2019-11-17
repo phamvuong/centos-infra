@@ -1,0 +1,5 @@
+---
+# default OpenJDK 1.8
+# java_packages: []
+
+java_home: ""
