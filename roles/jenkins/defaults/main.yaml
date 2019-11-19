@@ -14,10 +14,53 @@ jenkins_jar_location: /opt/jenkins-cli.jar
 jenkins_url_prefix: ""
 jenkins_java_options: "-Djenkins.install.runSetupWizard=false"
 
-jenkins_plugins: []
+jenkins_plugins:
+  - ant
+  - build-timeout
+  - credentials-binding
+  - cvs
+  - dashboard-view
+  - external-monitor-job
+  - durable-task
+  - git
+  - git-client
+  - git-server
+  - github-api
+  - ghprb
+  - gradle
+  - javadoc
+  - junit
+  - ldap
+  - mailer
+  - maven-plugin
+  - pam-auth
+  - plain-credentials
+  - publish-over-ssh
+  - rebuild
+  - ssh-agent
+  - ssh-credentials
+  - ssh-slaves
+  - ssh-credentials
+  # Pipelines and CI
+  - blueocean
+  - build-pipeline-plugin
+  - conditional-buildstep
+  - jenkins-multijob-plugin
+  - github-organization-folder
+  - parameterized-trigger
+  - pipeline-stage-view
+  - workflow-aggregator
+  - workflow-scm-step
+  # User Management and Security
+  - active-directory
+  - ldap
+  - matrix-auth
+  - pam-auth
+  - role-strategy
+
 jenkins_plugins_state: present
 jenkins_plugin_updates_expiration: 86400
-jenkins_plugin_timeout: 30
+jenkins_plugin_timeout: 90
 jenkins_plugins_install_dependencies: true
 jenkins_updates_url: "https://updates.jenkins.io"
 
