@@ -1,0 +1,7 @@
+---
+- name: Configure jenkins machine
+  become: yes
+  become_method: sudo
+  hosts: jenkins
+  roles:
+    - jenkins_creds

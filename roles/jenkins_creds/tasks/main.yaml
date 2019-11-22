@@ -1,0 +1,8 @@
+---
+
+# SSH creds config
+- include_tasks: ssh_creds.yaml
+
+# Jobs creds config
+- include_tasks: job_creds.yaml
+

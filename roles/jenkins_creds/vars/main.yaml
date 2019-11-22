@@ -1,0 +1,21 @@
+---
+jenkins_extra_user: jenkins
+jenkins_extra_group: jenkins
+jenkins_extra_home:  "/var/lib/jenkins"
+
+jenkins_extra_login_user: vagrant
+jenkins_extra_login_pass: vagrant
+
+jenkins_extra_port: 8080              # Jenkins port
+
+jenkins_extra_job_creds_config:
+  - id: phamvuong
+    description: python-pipeline
+    key_file: /var/lib/jenkins/.ssh/phamvuong
+    user: phamvuong
+    type: ssh-private-key
+
+jenkins_extra_ssh_keys:
+  - keyname: phamvuong
+    public:
+    private:

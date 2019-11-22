@@ -1,0 +1,76 @@
+---
+- name: Check if EPEL repo is already configured.
+  stat: path={{ epel_repofile_path }}
+  register: epel_repofile_result
+
+- name: Install EPEL repo.
+  yum:
+    name: "{{ epel_repo_url }}"
+    state: present
+  register: result
+  when: not epel_repofile_result.stat.exists
+
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: "{{ epel_repo_gpg_key_url }}"
+    state: present
+  when: not epel_repofile_result.stat.exists
+
+- name: Ensure build dependencies are installed.
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - git
+    - python-devel
+    - python-pip
+
+- name: Install jenkins job builder using pip.
+  become: yes
+  pip:
+    extra_args: "{{ jenkins_job_builder_pip_extra_args|default(omit) }}"
+    name: "{{ jenkins_job_builder_pip_name }}"
+    version: "{{ jenkins_job_builder_pip_version|default(omit) }}"
+    virtualenv: "{{ jenkins_job_builder_pip_virtualenv|default(omit) }}"
+    executable: "{{ jenkins_job_builder_pip_executable|default(omit) }}"
+
+- name: Create required directories.
+  become: yes
+  file:
+    group: "{{ jenkins_job_builder_user_group }}"
+    owner: "{{ jenkins_job_builder_user_name }}"
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /etc/jenkins_jobs
+
+- name: Template jenkins_jobs.ini file.
+  become: yes
+  template:
+    dest: "{{ jenkins_job_builder_template_jenkins_jobs_ini_dest }}"
+    group: "{{ jenkins_job_builder_template_jenkins_jobs_ini_group }}"
+    mode: "{{ jenkins_job_builder_template_jenkins_jobs_ini_mode }}"
+    owner: "{{ jenkins_job_builder_template_jenkins_jobs_ini_owner }}"
+    src: "{{ jenkins_job_builder_template_jenkins_jobs_ini_src }}"
+
+- name: Create jobs directory.
+  become: yes
+  file:
+    dest: "{{ jenkins_job_builder_file_jobs_dest }}"
+    group: "{{ jenkins_job_builder_file_jobs_group }}"
+    mode: "{{ jenkins_job_builder_file_jobs_mode }}"
+    owner: "{{ jenkins_job_builder_file_jobs_owner }}"
+    state: directory
+
+- name: Rsync jenkins jobs configuration.
+  become: yes
+  synchronize:
+    delete: yes
+    dest: "{{ jenkins_job_builder_file_jobs_dest }}"
+    perms: yes
+    src: "{{ jenkins_job_builder_file_jobs_src }}"
+  when: jenkins_job_builder_file_jobs_src != ""
+  notify:
+    - Check jenkins
+    - Reload jenkins-jobs

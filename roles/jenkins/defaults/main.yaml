@@ -1,7 +1,4 @@
 ---
-# jenkins_version: "1.644"
-# jenkins_pkg_url: "https://www.example.com"
-
 # Change this to `latest` to update Jenkins if a newer version is available.
 jenkins_package_state: present
 
@@ -40,7 +37,6 @@ jenkins_plugins:
   - ssh-agent
   - ssh-credentials
   - ssh-slaves
-  - ssh-credentials
   # Pipelines and CI
   - blueocean
   - build-pipeline-plugin

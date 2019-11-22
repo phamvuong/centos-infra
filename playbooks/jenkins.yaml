@@ -8,3 +8,6 @@
     - java
     - docker
     - jenkins
+
+- import_playbook: jenkins_creds.yaml
+- import_playbook: jenkins_job_builder.yaml

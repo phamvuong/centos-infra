@@ -56,7 +56,9 @@
     name: "/tmp/jenkins-{{ jenkins_version }}-1.1.noarch.rpm"
     state: present
   when: jenkins_version is defined and specific_version.stat.exists
-  notify: configure default users
+  notify:
+  - configure default users
+  - configure csrf
 
 - name: Ensure Jenkins is installed.
   package:

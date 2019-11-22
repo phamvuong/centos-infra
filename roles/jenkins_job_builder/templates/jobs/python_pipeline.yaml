@@ -1,0 +1,15 @@
+- job:
+    name: python-pipeline
+    project-type: pipeline
+    sandbox: true
+    pipeline-scm:
+      scm:
+        - git:
+            url: ssh://git@github.com/phamvuong/python_pipeline.git
+            branch: develop
+            credentialsId: {{ ssh_credential }}
+            clean: true
+      triggers:
+        - github-pull-request
+      script-path: Jenkinsfile_dev
+      lightweight-checkout: true
