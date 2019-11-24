@@ -1,0 +1,10 @@
+vagrant_box: centos/7
+vagrant_box_version: "1905.1"
+vagrant_ip: 192.168.99.15
+vagrant_mac: "00000000001"
+vagrant_hostname: vagrant
+vagrant_memory: 2048
+vagrant_directory: /vagrant
+vagrant_cpu: 1
+vagrant_box_check_update: false
+vagrant_domain_name: devops.internal.com
