@@ -33,6 +33,7 @@ logging.basicConfig(
 )
 
 
+SESSION = requests.Session()
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 SCOPE = 'GLOBAL'
 BASE_URL = 'http://localhost:8080'
@@ -128,7 +129,7 @@ def get_request_crumb(opts):
     if opts['username'] and opts['password']:
         auth = requests.auth.HTTPBasicAuth(opts['username'], opts['password'])
 
-    resp = requests.get(url, auth=auth)
+    resp = SESSION.get(url, auth=auth)
     try:
         resp.raise_for_status()
     except requests.exceptions.HTTPError as ex:
@@ -151,7 +152,7 @@ def create_credentials(opts):
     if opts['username'] and opts['password']:
         auth = requests.auth.HTTPBasicAuth(opts['username'], opts['password'])
 
-    resp = requests.post(url, auth=auth, headers=headers, data=opts['payload'])
+    resp = SESSION.post(url, auth=auth, headers=headers, data=opts['payload'])
     try:
         resp.raise_for_status()
     except requests.exceptions.HTTPError as ex:
