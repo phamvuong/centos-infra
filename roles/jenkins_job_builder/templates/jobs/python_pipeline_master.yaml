@@ -1,5 +1,5 @@
 - job:
-    name: python-pipeline
+    name: python-pipeline-master
     project-type: pipeline
     sandbox: true
     pipeline-scm:
@@ -7,7 +7,7 @@
         - git:
             url: ssh://git@github.com/phamvuong/python_pipeline.git
             branch: master
-            credentialsId: {{ ssh_credential }}
+            credentialsId: phamvuong
             clean: true
       triggers:
         - github-pull-request

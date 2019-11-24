@@ -1,5 +1,16 @@
+# Nameserver config
 nameservers:
   - 192.168.99.151
 
 ns_zone: devops.internal.com
 forward_zone: devops.com
+
+# Jenkins config
+jenkins_home: /var/lib/jenkins
+jenkins_hostname: localhost
+jenkins_http_port: 8080
+jenkins_admin_username: admin
+jenkins_admin_password: admin
+jenkins_admin_password_file: ""
+jenkins_process_user: jenkins
+jenkins_process_group: "{{ jenkins_process_user }}"

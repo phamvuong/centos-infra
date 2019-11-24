@@ -7,7 +7,7 @@
         - git:
             url: ssh://git@github.com/phamvuong/python_pipeline.git
             branch: develop
-            credentialsId: {{ ssh_credential }}
+            credentialsId: phamvuong
             clean: true
       triggers:
         - github-pull-request

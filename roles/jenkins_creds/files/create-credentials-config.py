@@ -82,18 +82,12 @@ def string_credentials_payload(opts):
 def private_key_source(opts):
     """ Return private key source hash """
 
-    if opts['creds_key_file']:
-        private_key_source = {
-            'privateKeyFile': opts['creds_key_file'],
-            'stapler-class': "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$FileOnMasterPrivateKeySource"
-        }
-
     if opts['creds_key_src']:
         with open(opts['creds_key_src'], 'r') as f:
             key = f.read()
         private_key_source = {
             'privateKey': key,
-            'stapler-class': "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$DirectEntryPrivateKeySource"
+            '$class': "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$DirectEntryPrivateKeySource"
         }
 
     return private_key_source
@@ -109,7 +103,7 @@ def ssh_private_key_payload(opts):
             'description': opts['description'],
             'username': opts['creds_user'],
             'privateKeySource': private_key_source(opts),
-            'stapler-class': "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey"
+            '$class': "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey"
         }
     }
     payload = {
@@ -176,7 +170,6 @@ ssh_priv_key.add_argument('-p', dest='password', default=False, help='Password f
 ssh_priv_key.add_argument('-l', dest='base_url', default=BASE_URL, help='Jenkins base url')
 ssh_priv_key.add_argument('-I', dest='creds_id', required=True, help='Credentials ID')
 ssh_priv_key.add_argument('-U', dest='creds_user', required=True, help='SSH Username to configure')
-ssh_priv_key.add_argument('-F', dest='creds_key_file', help='Path of ssh private key file on Jenkins master')
 ssh_priv_key.add_argument('-K', dest='creds_key_src', help='Source file of private key to read from (locally)')
 ssh_priv_key.add_argument('-D', dest='description', default='', help='Description of credentials')
 ssh_priv_key.add_argument('-S', dest='creds_scope', default=SCOPE, help='Credentials domain scope')
@@ -211,10 +204,8 @@ if __name__ == '__main__':
     options['scope'] = SCOPE
 
     if options['sub_command'] == 'ssh-private-key':
-        if options['creds_key_file'] and options['creds_key_src']:
-            print 'Specify either key file or key source'
-        if not (options['creds_key_file'] or options['creds_key_src']):
-            print 'Missing key file or key source'
+        if not (options['creds_key_src']):
+            print 'Missing key source'
             sys.exit(1)
         options['payload'] = ssh_private_key_payload(options)
         create_credentials(options)

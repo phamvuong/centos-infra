@@ -1,21 +1,32 @@
 ---
-jenkins_extra_user: jenkins
-jenkins_extra_group: jenkins
-jenkins_extra_home:  "/var/lib/jenkins"
+jenkins_ssh_user: vagrant
+jenkins_ssh_identity_file: ../.ssh/id_rsa
 
-jenkins_extra_login_user: vagrant
-jenkins_extra_login_pass: vagrant
-
-jenkins_extra_port: 8080              # Jenkins port
-
-jenkins_extra_job_creds_config:
+jenkins_job_creds_config:
   - id: phamvuong
-    description: python-pipeline
+    description: phamvuong-private-ssh-key
     key_file: /var/lib/jenkins/.ssh/phamvuong
     user: phamvuong
     type: ssh-private-key
+#  - id: infra-aws-access-key-id-creds-id
+#    description: infra-aws-access-key-id
+#    secret: 'someAwsAccessKeyId'
+#    type: secret-text
+#  - id: infra-aws-secret-access-key-creds-id
+#    description: infra-aws-secret-access-key
+#    secret: 'someAwsSecreteAccessKey'
+#    type: secret-text
+  - id: phamvuong-jenkins-userpass
+    description: phamvuong-jenkins-userpass
+    user: phamvuong
+    pass: abc
+    type: userpass
 
-jenkins_extra_ssh_keys:
+jenkins_ssh_keys:
   - keyname: phamvuong
+    user: phamvuong
+    id: phamvuong
+    type: ssh-private-key
+    description: python-pipeline
     public:
     private:

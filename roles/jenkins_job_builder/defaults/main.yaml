@@ -1,7 +1,7 @@
 ---
 # configuration
-jenkins_job_builder_user_name: root
-jenkins_job_builder_user_group: root
+jenkins_job_builder_user_name: jenkins
+jenkins_job_builder_user_group: jenkins
 
 jenkins_job_builder_config_job_builder_allow_duplicates: False
 jenkins_job_builder_config_job_builder_ignore_cache: True
@@ -34,6 +34,3 @@ jenkins_job_builder_pip_name: jenkins-job-builder
 # handlers
 jenkins_job_builder_handler_check_delay: 10
 jenkins_job_builder_handler_check_retries: 3
-
-# job config
-ssh_credential: phamvuong
