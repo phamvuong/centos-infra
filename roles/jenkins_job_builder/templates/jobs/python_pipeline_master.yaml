@@ -5,9 +5,10 @@
     pipeline-scm:
       scm:
         - git:
-            url: ssh://git@github.com/phamvuong/python_pipeline.git
-            branch: master
-            credentialsId: phamvuong
+            url: https://github.com/phamvuong/python_pipeline.git
+            branches:
+              - master
+            credentials-id: phamvuong
             clean: true
       triggers:
         - github-pull-request
