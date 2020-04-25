@@ -3,7 +3,7 @@ ns1.devops.internal.com
 jenkins.devops.internal.com
 
 [nameserver]
-ns1.devops.internal.com
+ns1.devops.internal.com ansible_host=192.168.99.151
 
 [jenkins]
-jenkins.devops.internal.com
+jenkins.devops.internal.com ansible_host=192.168.99.152

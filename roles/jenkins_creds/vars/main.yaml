@@ -29,4 +29,8 @@ jenkins_ssh_keys:
     type: ssh-private-key
     description: python-pipeline
     public:
+      Enter your public ssh key here
     private:
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      Enter your private ssh key here
+      -----END OPENSSH PRIVATE KEY-----
